@@ -11,7 +11,7 @@ const Book = ({ singleBook }) => {
     return (
         <NavLink to={`/bookDetails/${bookId}`}>
             <div>
-                <div className="card bg-gray-50 w-96 p-6 mx-auto shadow-sm">
+                <div className="card bg-gray-50 w-96 h-[482px] p-6 mx-auto shadow-sm">
                     <div className='bg-gray-100 rounded-2xl'>
                         <figure className='w-80 mx-auto  h-52'>
                             <img className='h-[166px]'
