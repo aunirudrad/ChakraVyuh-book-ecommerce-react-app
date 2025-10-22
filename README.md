@@ -14,7 +14,7 @@ Key points
 Project structure (important files)
 
 - `index.html` — Vite entry HTML.
-- `src/main.jsx` — React app bootstrap.
+- `src/main.jsx` — React app.
 - `src/Routes/Routes.jsx` — application routes and route loaders (provides book data to pages).
 - `src/pages/` — page components:
   - `Home/` — homepage listing
@@ -69,6 +69,3 @@ Contact / Course notes
 
 - This repository is part of a web development milestone. Keep commits focused and small so you can track changes for review.
 
-License
-
-- MIT (or change to your preferred license)
