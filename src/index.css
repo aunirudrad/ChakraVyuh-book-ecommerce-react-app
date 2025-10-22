@@ -1,2 +1,9 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+.active {
+    border: 2px solid lightcoral;
+    border-radius: 5px;
+    padding: 8px;
+    color: lightcoral;
+}
