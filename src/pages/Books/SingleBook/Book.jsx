@@ -3,7 +3,7 @@ import { CiStar } from "react-icons/ci";
 import { NavLink } from 'react-router';
 
 const Book = ({ singleBook }) => {
-    console.log(singleBook);
+    // console.log(singleBook);
 
     const { bookId,bookName, author, image, rating, tags, category } = singleBook;
     // const bookData = use(bookPromise);

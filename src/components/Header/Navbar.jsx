@@ -1,4 +1,5 @@
 import React from 'react';
+import './Navbar.css'
 import { NavLink } from 'react-router';
 
 const Navbar = () => {
@@ -9,8 +10,8 @@ const Navbar = () => {
         <NavLink to='/pages-to-read'><li>Pages to Read</li></NavLink>
     </>
     return (
-        <div >
-            <div className="navbar bg-base-100 my-6">
+        <div className='nav'>
+            <div className="navbar bg-white-100 py-6">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

@@ -25,4 +25,4 @@ const setToLocalStorage = id => {
     }
 }
 
-export {setToLocalStorage};
+export {setToLocalStorage, getFromLocalStorage};
