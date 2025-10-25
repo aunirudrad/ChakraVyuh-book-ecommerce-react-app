@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLoaderData, useParams } from 'react-router';
 import { setToLocalStorage } from '../../Utilities/addToLocalStorage';
+import './BookDetails.css';
 
 const BookDetails = () => {
     const {ID} = useParams();
     const bookID = parseInt(ID);
     const bookData = useLoaderData();
     const singleBookData = bookData && bookData.find(singleBook => singleBook.bookId === bookID);
+    const [showModal, setShowModal] = useState(false);
 
     if (!singleBookData) return (
         <div className="flex items-center justify-center min-h-[60vh]">
@@ -28,8 +30,13 @@ const BookDetails = () => {
     } = singleBookData;
 
     const handleMarkAsRead = id => {
-
         setToLocalStorage(id);
+        setShowModal(true);
+        
+        // Auto close modal after 2 seconds
+        setTimeout(() => {
+            setShowModal(false);
+        }, 2000);
     }
 
     return (
@@ -103,6 +110,37 @@ const BookDetails = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Success Modal */}
+            {showModal && (
+                <div className="fixed inset-0 bg-transparent bg-opacity-50 flex items-center justify-center z-50 animate-fadeIn">
+                    <div className="bg-white rounded-2xl p-8 max-w-sm w-full mx-4 shadow-2xl transform animate-scaleIn">
+                        <div className="text-center">
+                            {/* Animated Check Mark */}
+                            <div className="mx-auto flex items-center justify-center h-20 w-20 rounded-full bg-green-100 animate-checkmark">
+                                <svg 
+                                    className="h-12 w-12 text-green-600 animate-drawCheck" 
+                                    fill="none" 
+                                    stroke="currentColor" 
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path 
+                                        strokeLinecap="round" 
+                                        strokeLinejoin="round" 
+                                        strokeWidth="3" 
+                                        d="M5 13l4 4L19 7"
+                                    />
+                                </svg>
+                            </div>
+                            
+                            {/* Success Message */}
+                            <h3 className="mt-6 text-2xl font-bold text-gray-900">Success!</h3>
+                            <p className="mt-2 text-gray-600">Book has been marked as read</p>
+                            <p className="mt-1 text-sm font-semibold text-green-600">{bookName}</p>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

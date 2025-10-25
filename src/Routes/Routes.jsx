@@ -12,20 +12,30 @@ export const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                loader: () => fetch("booksData.json"),
+                loader: async () => {
+                    const res = await fetch("/booksData.json");
+                    return res.json();
+                },
                 path: '/',
                 Component: Home
             },
             {
-                path: '/listed-books',
-                loader: () => fetch("booksData.json"),
-                Component: ListedBooks
-            },
-            {
                 path:'/bookDetails/:ID',
-                loader: () => fetch("booksData.json"),
+                loader: async () => {
+                    const res = await fetch("/booksData.json");
+                    return res.json();
+                },
                 Component: BookDetails
             },
+            {
+                path: '/listed-books',
+                loader: async () => {
+                    const res = await fetch("/booksData.json");
+                    return res.json();
+                },
+                Component: ListedBooks
+            }
+            
             
         ]
     }

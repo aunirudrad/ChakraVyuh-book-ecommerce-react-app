@@ -14,13 +14,17 @@ const ListedBooks = () => {
     // console.log(readData);
 
     useEffect(() => {
+        if (!readData || !Array.isArray(readData)) {
+            return;
+        }
+        
         const storedBookData = getFromLocalStorage();
         const convertedStoredBooks = storedBookData.map(book => parseInt(book) );
         
         const myReadList = readData.filter(bookId => convertedStoredBooks.includes(bookId.bookId))
         console.log(myReadList);
         setReadList(myReadList);
-    }, [] )
+    }, [readData])
     return (
         <div className='p-3'>
             
