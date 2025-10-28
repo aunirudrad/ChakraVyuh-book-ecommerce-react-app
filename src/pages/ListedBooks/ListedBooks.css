@@ -1,0 +1,41 @@
+/* Smooth slide in animation for book cards */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Container for smooth transitions */
+.book-card-item {
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+}
+
+/* Smooth opacity and position changes */
+.space-y-6 > * {
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.4s ease-in-out;
+}
+
+/* Hover effect for better UX */
+.book-card-item:hover {
+    transform: translateY(-4px);
+    transition: transform 0.3s ease;
+}
+
+/* Staggered animation delay */
+.book-card-item:nth-child(1) { animation-delay: 0s; }
+.book-card-item:nth-child(2) { animation-delay: 0.1s; }
+.book-card-item:nth-child(3) { animation-delay: 0.2s; }
+.book-card-item:nth-child(4) { animation-delay: 0.3s; }
+.book-card-item:nth-child(5) { animation-delay: 0.4s; }
+.book-card-item:nth-child(6) { animation-delay: 0.5s; }
+.book-card-item:nth-child(7) { animation-delay: 0.6s; }
+.book-card-item:nth-child(8) { animation-delay: 0.7s; }
+.book-card-item:nth-child(9) { animation-delay: 0.8s; }
+.book-card-item:nth-child(10) { animation-delay: 0.9s; }
