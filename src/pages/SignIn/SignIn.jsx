@@ -1,63 +1,33 @@
-import React, { useState } from 'react';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import React from 'react';
 import { auth } from '../../firebase/firebase.init';
-import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Link } from 'react-router';
 
-const SignUp = () => {
+const SignIn = () => {
 
-    const [showPass, setShowPass] = useState(false);
-
-    const handleCreateUser = (e) => {
+    const handleSignIn = (e) => {
         e.preventDefault();
 
         const email = e.target.email.value;
         const password = e.target.password.value;
 
-        console.log(email, password);
-
-        createUserWithEmailAndPassword(auth, email, password)
-        .then((result) => {
-            console.log(result.user);
-            const user = result.user;
-            if(!user.emailVerified){
-                sendEmailVerification(auth.currentUser)
-                .then((res) => {
-                    alert('Account Creation Successful! Please Check your Email for Verification.');
-                })
-
-            }
-        }).catch(err => {
-            console.log(err.message);
-        })
+        signInWithEmailAndPassword(auth, email, password)
+            .then((result) => {
+                console.log(result.user);
+            })
     }
-
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md mx-auto">
                 {/* Header */}
                 <div className="text-center mb-8">
-                    <h2 className="text-4xl font-bold text-gray-900 mb-2">Create Account</h2>
-                    <p className="text-gray-600">Join Boipoka and start your reading journey</p>
+                    <h2 className="text-4xl font-bold text-gray-900 mb-2">Welcome Back</h2>
+                    <p className="text-gray-600">Sign in to continue your reading journey</p>
                 </div>
 
-                {/* Sign Up Form Card */}
+                {/* Sign In Form Card */}
                 <div className="bg-white rounded-2xl shadow-xl p-8">
-                    {/* Name Input */}
-                    <form onSubmit={handleCreateUser} className="space-y-6">
-                        <div>
-                            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                                Full Name
-                            </label>
-                            <input
-                                type="text"
-                                id="name"
-                                name="name"
-                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 outline-none"
-                                placeholder="Enter your full name"
-                            />
-                        </div>
-
+                    <form onSubmit={handleSignIn} className="space-y-6">
                         {/* Email Input */}
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
@@ -73,66 +43,45 @@ const SignUp = () => {
                         </div>
 
                         {/* Password Input */}
-                        <div className='relative'>
+                        <div>
                             <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
                                 Password
                             </label>
-                            <input
-                                type={showPass ? "text" : "password"}
-                                id="password"
-                                name="password"
-                                className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 outline-none"
-                                placeholder="Create a password"
-                            />
-                            <button 
-                                type="button"
-                                onClick={() => setShowPass(!showPass)}
-                                className='absolute right-4 top-[42px] text-gray-600 hover:text-gray-800 transition duration-200'
-                            >
-                                {showPass ? <FaEye /> : <FaEyeSlash />}
-                            </button>
+                            <div className="relative">
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 outline-none"
+                                    placeholder="Enter your password"
+                                />
+                            </div>
                         </div>
 
-                        {/* Confirm Password Input */}
-                        <div>
-                            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">
-                                Confirm Password
-                            </label>
-                            <input
-                                type="password"
-                                id="confirmPassword"
-                                name="confirmPassword"
-                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 outline-none"
-                                placeholder="Confirm your password"
-                            />
+                        {/* Remember Me & Forgot Password */}
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center">
+                                <input
+                                    type="checkbox"
+                                    id="remember"
+                                    name="remember"
+                                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
+                                />
+                                <label htmlFor="remember" className="ml-2 text-sm text-gray-600 cursor-pointer">
+                                    Remember me
+                                </label>
+                            </div>
+                            <a href="#" className="text-sm text-blue-600 hover:text-blue-700 font-medium">
+                                Forgot password?
+                            </a>
                         </div>
 
-                        {/* Terms and Conditions */}
-                        <div className="flex items-start">
-                            <input
-                                type="checkbox"
-                                id="terms"
-                                name="terms"
-                                className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
-                            />
-                            <label htmlFor="terms" className="ml-3 text-sm text-gray-600 cursor-pointer">
-                                I agree to the{' '}
-                                <a href="#" className="text-blue-600 hover:text-blue-700 font-medium">
-                                    Terms and Conditions
-                                </a>{' '}
-                                and{' '}
-                                <a href="#" className="text-blue-600 hover:text-blue-700 font-medium">
-                                    Privacy Policy
-                                </a>
-                            </label>
-                        </div>
-
-                        {/* Sign Up Button */}
+                        {/* Sign In Button */}
                         <button
                             type="submit"
                             className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-3 px-4 rounded-lg hover:from-blue-700 hover:to-purple-700 transform hover:scale-[1.02] transition duration-200 shadow-lg"
                         >
-                            Sign Up
+                            Sign In
                         </button>
                     </form>
 
@@ -146,7 +95,7 @@ const SignUp = () => {
                         </div>
                     </div>
 
-                    {/* Social Sign Up Buttons */}
+                    {/* Social Sign In Buttons */}
                     <div className="grid grid-cols-2 gap-4">
                         <button
                             type="button"
@@ -183,13 +132,12 @@ const SignUp = () => {
                         </button>
                     </div>
 
-                    {/* Sign In Link */}
-                    <div className="text-center pt-4">
+                    {/* Sign Up Link */}
+                    <div className="text-center pt-6">
                         <p className="text-sm text-gray-600">
-                            Already have an account?{' '}
-                            <Link to='/signin'>
-                            <span className="text-blue-600 hover:text-blue-700 font-semibold">
-                                Sign In
+                            Don't have an account?{' '}
+                            <Link to='/signup'><span className="text-blue-600 hover:text-blue-700 font-semibold">
+                                Sign Up
                             </span></Link>
                         </p>
                     </div>
@@ -197,11 +145,11 @@ const SignUp = () => {
 
                 {/* Additional Info */}
                 <p className="text-center text-xs text-gray-500 mt-8">
-                    By signing up, you'll get access to thousands of books and personalized recommendations.
+                    Access thousands of books and personalized recommendations.
                 </p>
             </div>
         </div>
     );
 };
 
-export default SignUp;
+export default SignIn;

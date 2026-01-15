@@ -33,10 +33,10 @@ const Navbar = () => {
                 </div>
                 <div className='navbar-end'>
                     <div className="mr-2">
-                        <a className="btn">Sign In</a>
+                        <Link to='/signin'><button className="btn">Sign In</button></Link>
                     </div>
                     <div className="">
-                        <Link to='/signup'><a className="btn">Sign Up</a></Link>
+                        <Link to='/signup'><button className="btn">Sign Up</button></Link>
                     </div>
                 </div>
             </div>
