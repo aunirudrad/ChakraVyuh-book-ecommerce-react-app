@@ -1,14 +1,16 @@
 import React from 'react';
+import { AuthContext } from './AuthContext';
 
-const AuthProvider = new GoogleAuthProvider();
+
 
 
 const AuthProvider = ({children}) => {
     
     return (
-        <div>
-            
-        </div>
+        <AuthContext value={children}>
+            {children}
+
+        </AuthContext>
     );
 };
 

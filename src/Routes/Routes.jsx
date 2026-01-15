@@ -4,6 +4,7 @@ import Root from '../pages/Root/Root';
 import Home from '../pages/Home/Home';
 import BookDetails from '../pages/BookDetails/BookDetails';
 import ListedBooks from '../pages/ListedBooks/ListedBooks';
+import SignUp from '../pages/SignUp/SignUp';
 
 export const router = createBrowserRouter([
     {
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
                     return res.json();
                 },
                 Component: ListedBooks
+            },
+            {
+                path: '/signup',
+                Component: SignUp
             }
             
             
