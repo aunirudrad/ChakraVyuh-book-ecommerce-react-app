@@ -2,15 +2,13 @@ import React, { use } from 'react';
 import './Navbar.css'
 import { Link, NavLink } from 'react-router';
 import { AuthContext } from '../../contextProvider/AuthContext';
-import { signOut } from 'firebase/auth';
-import { auth } from '../../firebase/firebase.init';
 
 const Navbar = () => {
 
-    const { user } = use(AuthContext);
+    const { user, signOutUser } = use(AuthContext);
 
     const handleSignOut = () => {
-        signOut(auth).then(res => {
+        signOutUser.then(res => {
             console.log("signed out", res);
         })
     }
