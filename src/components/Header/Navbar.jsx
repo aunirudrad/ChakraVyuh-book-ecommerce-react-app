@@ -8,7 +8,7 @@ const Navbar = () => {
     const { user, signOutUser } = use(AuthContext);
 
     const handleSignOut = () => {
-        signOutUser.then(res => {
+        signOutUser().then(res => {
             console.log("signed out", res);
         })
     }
@@ -42,8 +42,17 @@ const Navbar = () => {
                 </div>
                 <div className='navbar-end'>
                     {
-                        user ? <div className="mr-2">
-                            <Link><button onClick={handleSignOut} className="btn">Sign Out</button></Link> </div> :
+                        user ? <div className="flex gap-4 items-center mr-2">
+                            <div className="avatar">
+                                <div className="ring-primary ring-offset-base-100 w-12 rounded-full ring-2 ring-offset-2">
+                                    <img src={user.photoURL} alt={user.displayName || 'User'} />
+                                </div>
+                            </div>
+                            <div className="hidden md:block">
+                                <p className="text-sm font-semibold text-gray-800">{user.displayName || 'User'}</p>
+                                <p className="text-xs text-gray-500">{user.email}</p>
+                            </div>
+                            <Link><button onClick={handleSignOut} className="btn btn-sm bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 border-none">Sign Out</button></Link> </div> :
                             <>
                                 <div className="mr-2">
                                     <Link to='/signin'><button className="btn">Sign In</button></Link>
@@ -51,7 +60,7 @@ const Navbar = () => {
                                 <div className="">
                                     <Link to='/signup'><button className="btn">Sign Up</button></Link>
                                 </div></>
-                    
+
                     }
                 </div>
             </div>

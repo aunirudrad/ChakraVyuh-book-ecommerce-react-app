@@ -1,13 +1,13 @@
 import React, { use, useState } from 'react';
 import { auth } from '../../firebase/firebase.init';
-import {  sendEmailVerification } from 'firebase/auth';
+import {  sendEmailVerification, updateProfile } from 'firebase/auth';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Link } from 'react-router';
 import { AuthContext } from '../../contextProvider/AuthContext';
 
 const SignUp = () => {
 
-    const {createUser} = use(AuthContext);
+    const {createUser, signOutUser} = use(AuthContext);
 
     const [showPass, setShowPass] = useState(false);
 
@@ -16,6 +16,8 @@ const SignUp = () => {
 
         const email = e.target.email.value;
         const password = e.target.password.value;
+        const name = e.target.name.value;
+        const photoURL = e.target.photoURL.value;
 
         console.log(email, password);
 
@@ -23,13 +25,36 @@ const SignUp = () => {
         .then((result) => {
             console.log(result.user);
             const user = result.user;
-            if(!user.emailVerified){
-                sendEmailVerification(auth.currentUser)
-                .then((res) => {
-                    alert('Account Creation Successful! Please Check your Email for Verification.');
-                })
-
-            }
+            
+            // Update user profile with display name and photo URL
+            updateProfile(user, {
+                displayName: name,
+                photoURL: photoURL
+            })
+            .then(() => {
+                console.log('Profile updated successfully');
+                
+                // Send email verification
+                if(!user.emailVerified){
+                    sendEmailVerification(auth.currentUser)
+                    .then(() => {
+                        alert('Account Creation Successful! Please Check your Email for Verification.');
+                        
+                        // Sign out the user after account creation
+                        signOutUser()
+                        .then(() => {
+                            console.log('User signed out after registration');
+                        })
+                        .catch((error) => {
+                            console.log('Sign out error:', error);
+                        });
+                    })
+                }
+            })
+            .catch((error) => {
+                console.log('Profile update error:', error.message);
+            });
+            
         }).catch(err => {
             console.log(err.message);
         })
@@ -72,6 +97,20 @@ const SignUp = () => {
                                 name="email"
                                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 outline-none"
                                 placeholder="Enter your email"
+                            />
+                        </div>
+
+                        {/* Photo URL Input */}
+                        <div>
+                            <label htmlFor="photoURL" className="block text-sm font-medium text-gray-700 mb-2">
+                                Photo URL
+                            </label>
+                            <input
+                                type="url"
+                                id="photoURL"
+                                name="photoURL"
+                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 outline-none"
+                                placeholder="Enter your photo URL"
                             />
                         </div>
 

@@ -1,12 +1,13 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import React, { use } from 'react';
 import { auth } from '../../firebase/firebase.init';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../../contextProvider/AuthContext';
 
 const SignIn = () => {
 
     const { signInUser } = use(AuthContext);
+    const navigate = useNavigate();
 
     const handleSignIn = (e) => {
         e.preventDefault();
@@ -16,11 +17,13 @@ const SignIn = () => {
 
         signInUser(email, password)
             .then((result) => {
-                if (!result.emailVerified) {
+                if (!result.user.emailVerified) {
                     alert("Account is not Verified. Check Email for Verification!");
                 }
                 else {
                     console.log(result.user);
+                    navigate('/');
+
 
                 }
             }).catch(err => err.message);
