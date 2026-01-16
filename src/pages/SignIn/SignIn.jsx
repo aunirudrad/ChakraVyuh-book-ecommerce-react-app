@@ -1,9 +1,12 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import React from 'react';
+import React, { use } from 'react';
 import { auth } from '../../firebase/firebase.init';
 import { Link } from 'react-router';
+import { AuthContext } from '../../contextProvider/AuthContext';
 
 const SignIn = () => {
+
+    const { signInUser } = use(AuthContext);
 
     const handleSignIn = (e) => {
         e.preventDefault();
@@ -11,9 +14,15 @@ const SignIn = () => {
         const email = e.target.email.value;
         const password = e.target.password.value;
 
-        signInWithEmailAndPassword(auth, email, password)
+        signInUser(email, password)
             .then((result) => {
-                console.log(result.user);
+                if (!result.emailVerified) {
+                    alert("Account is not Verified. Check Email for Verification!");
+                }
+                else {
+                    console.log(result.user);
+
+                }
             })
     }
     return (
