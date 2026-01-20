@@ -33,7 +33,7 @@ const Navbar = () => {
                             }
                         </ul>
                     </div>
-                    <a href='/' className="btn btn-ghost text-xl">ChakraVyuh</a>
+                    <a href='/' className="btn btn-ghost text-xl">Whispering Paper</a>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1 flex justify-between items-center gap-5">

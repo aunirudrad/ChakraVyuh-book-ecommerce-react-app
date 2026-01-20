@@ -1,4 +1,4 @@
-# ChakraVyuh — Book ECommerce Website (React + Vite)
+# Whispering Paper — Book ECommerce Website (React + Vite)
 
 Live demo: https://chakra-vyuh-book-ecommerce-react-ap-flame.vercel.app/
 

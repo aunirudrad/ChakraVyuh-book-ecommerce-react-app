@@ -66,7 +66,7 @@ const SignUp = () => {
                 {/* Header */}
                 <div className="text-center mb-8">
                     <h2 className="text-4xl font-bold text-gray-900 mb-2">Create Account</h2>
-                    <p className="text-gray-600">Join Boipoka and start your reading journey</p>
+                    <p className="text-gray-600">Join Whispering Paper and start your reading journey</p>
                 </div>
 
                 {/* Sign Up Form Card */}
